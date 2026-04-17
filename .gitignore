@@ -4,8 +4,8 @@
 # Google OAuth tokens (share-doc) — personal to each user
 .google-token.json
 
-# Google client credentials (GitHub blocks this due to client_secret)
-google-client-credentials.json
+# NOTE: google-client-credentials.json is deliberately IN the repo (it's safe, not secret)
+# It contains the OAuth client ID. Each user still authenticates with their own Google account.
 
 # Working files (personal to each team member)
 campaigns/drafts/**/*.md
