@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "properties": {
+    "fit_score": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }]
+    },
+    "fit_tier": {
+      "anyOf": [
+        { "type": "string", "enum": ["Priority", "Prospect", "Pass"] },
+        { "type": "null" }
+      ]
+    },
+    "dimension_scores": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "founder_fit": { "type": "number" },
+            "service_fit": { "type": "number" },
+            "independence": { "type": "number" },
+            "growth_stage": { "type": "number" },
+            "outbound_need": { "type": "number" },
+            "deal_readiness": { "type": "number" },
+            "founder_quality": { "type": "number" }
+          },
+          "required": [
+            "founder_fit", "service_fit", "independence", "growth_stage",
+            "outbound_need", "deal_readiness", "founder_quality"
+          ],
+          "additionalProperties": false
+        },
+        { "type": "null" }
+      ]
+    },
+    "reasoning": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "red_flags": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    }
+  },
+  "required": ["fit_score", "fit_tier", "dimension_scores", "reasoning", "red_flags"],
+  "additionalProperties": false
+}

@@ -1,0 +1,72 @@
+{
+  "type": "object",
+  "properties": {
+    "short_company_name": {
+      "type": "string"
+    },
+    "angle_chosen": {
+      "type": "string"
+    },
+    "email_1_subject_a": {
+      "type": "string"
+    },
+    "email_1_subject_b": {
+      "type": "string"
+    },
+    "email_1_subject_c": {
+      "type": "string"
+    },
+    "email_1_body": {
+      "type": "string"
+    },
+    "email_1_preview": {
+      "type": "string"
+    },
+    "email_2_subject": {
+      "type": "string"
+    },
+    "email_2_body": {
+      "type": "string"
+    },
+    "email_3_subject": {
+      "type": "string"
+    },
+    "email_3_body": {
+      "type": "string"
+    },
+    "email_1_word_count": {
+      "type": "number"
+    },
+    "email_2_word_count": {
+      "type": "number"
+    },
+    "email_3_word_count": {
+      "type": "number"
+    },
+    "personalisation_notes": {
+      "type": "string"
+    },
+    "research_accuracy_check": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "short_company_name",
+    "angle_chosen",
+    "email_1_subject_a",
+    "email_1_subject_b",
+    "email_1_subject_c",
+    "email_1_body",
+    "email_1_preview",
+    "email_2_subject",
+    "email_2_body",
+    "email_3_subject",
+    "email_3_body",
+    "email_1_word_count",
+    "email_2_word_count",
+    "email_3_word_count",
+    "personalisation_notes",
+    "research_accuracy_check"
+  ],
+  "additionalProperties": false
+}

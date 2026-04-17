@@ -1,0 +1,120 @@
+{
+  "type": "object",
+  "properties": {
+    "value_proposition": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "services": {
+      "anyOf": [
+        { "type": "array", "items": { "type": "string" } },
+        { "type": "null" }
+      ]
+    },
+    "industry_vertical": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "is_b2b": {
+      "anyOf": [{ "type": "boolean" }, { "type": "null" }]
+    },
+    "sells_expertise": {
+      "anyOf": [{ "type": "boolean" }, { "type": "null" }]
+    },
+    "employee_count_estimate": {
+      "anyOf": [
+        { "type": "string", "enum": ["1", "2-5", "6-15", "16-50", "50+"] },
+        { "type": "null" }
+      ]
+    },
+    "revenue_signals": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "years_in_business": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }]
+    },
+    "client_types": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "founder_led": {
+      "anyOf": [{ "type": "boolean" }, { "type": "null" }]
+    },
+    "business_type": {
+      "anyOf": [
+        { "type": "string", "enum": ["Creative Consultancy", "Strategy Consultancy", "Fractional Executive", "Coaching", "Technical Consultancy", "Training and Education", "Community and Membership", "Talent Placement", "Marketing Agency"] },
+        { "type": "null" }
+      ]
+    },
+    "deal_size": {
+      "anyOf": [
+        { "type": "string", "enum": ["high_ticket", "volume_low_ticket", "unclear"] },
+        { "type": "null" }
+      ]
+    },
+    "lead_gen_visible": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "notes": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "founder_name": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "founder_linkedin_url": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "founder_title": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "seniority_level": {
+      "anyOf": [
+        { "type": "string", "enum": ["founder", "owner", "c-level", "director", "partner"] },
+        { "type": "null" }
+      ]
+    },
+    "location": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "is_current": {
+      "anyOf": [{ "type": "boolean" }, { "type": "null" }]
+    },
+    "is_employed_elsewhere": {
+      "anyOf": [{ "type": "boolean" }, { "type": "null" }]
+    },
+    "employer_if_elsewhere": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "years_independent": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }]
+    },
+    "audience_size": {
+      "anyOf": [
+        { "type": "string", "enum": ["large", "medium", "small", "minimal"] },
+        { "type": "null" }
+      ]
+    },
+    "is_fake": {
+      "anyOf": [{ "type": "boolean" }, { "type": "null" }]
+    },
+    "confidence": {
+      "anyOf": [
+        { "type": "string", "enum": ["high", "medium", "low"] },
+        { "type": "null" }
+      ]
+    },
+    "found_via": {
+      "anyOf": [
+        { "type": "string", "enum": ["linkedin", "website", "google"] },
+        { "type": "null" }
+      ]
+    }
+  },
+  "required": [
+    "value_proposition", "services", "industry_vertical", "is_b2b", "sells_expertise",
+    "employee_count_estimate", "revenue_signals", "years_in_business", "client_types",
+    "founder_led", "business_type", "deal_size", "lead_gen_visible", "notes",
+    "founder_name", "founder_linkedin_url", "founder_title", "seniority_level",
+    "location", "is_current", "is_employed_elsewhere", "employer_if_elsewhere",
+    "years_independent", "audience_size", "is_fake",
+    "confidence", "found_via"
+  ],
+  "additionalProperties": false
+}

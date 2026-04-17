@@ -1,0 +1,10 @@
+{
+  "name": "mf-share-doc",
+  "version": "1.0.0",
+  "description": "Convert markdown files to shareable Google Docs (standalone, no n8n required)",
+  "main": "share.js",
+  "dependencies": {
+    "dotenv": "^16.4.0",
+    "open": "^10.1.0"
+  }
+}

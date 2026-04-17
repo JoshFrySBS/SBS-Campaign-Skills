@@ -1,0 +1,47 @@
+{
+  "type": "object",
+  "properties": {
+    "fit_score": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }]
+    },
+    "fit_tier": {
+      "anyOf": [
+        { "type": "string", "enum": ["Priority", "Prospect", "Pass"] },
+        { "type": "null" }
+      ]
+    },
+    "dimension_scores": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "company_size": { "type": "number" },
+            "sales_team": { "type": "number" },
+            "sophistication": { "type": "number" },
+            "intent": { "type": "number" },
+            "revenue": { "type": "number" }
+          },
+          "required": [
+            "company_size", "sales_team", "sophistication", "intent", "revenue"
+          ],
+          "additionalProperties": false
+        },
+        { "type": "null" }
+      ]
+    },
+    "score_workings": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "reasoning": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "red_flags": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "recommended_action": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    }
+  },
+  "required": ["fit_score", "fit_tier", "dimension_scores", "score_workings", "reasoning", "red_flags", "recommended_action"],
+  "additionalProperties": false
+}

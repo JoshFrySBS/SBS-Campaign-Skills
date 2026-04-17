@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(*)",
+      "Write(Modern Founder Skills/prompts/adapted/**)",
+      "Write(Modern Founder Skills/campaigns/**)",
+      "Write(Modern Founder Skills/strategy/**)",
+      "Write(Modern Founder Skills/clay-exports/**)",
+      "Edit(Modern Founder Skills/prompts/adapted/**)",
+      "Edit(Modern Founder Skills/campaigns/**)",
+      "Bash(cat *)",
+      "Bash(ls *)",
+      "Bash(node *)",
+      "Bash(curl *instantly*)"
+    ]
+  }
+}

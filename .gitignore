@@ -1,0 +1,36 @@
+# Environment variables (API keys)
+.env
+
+# Google OAuth tokens (share-doc) — personal to each user
+.google-token.json
+
+# Google client credentials (GitHub blocks this due to client_secret)
+google-client-credentials.json
+
+# Working files (personal to each team member)
+campaigns/drafts/**/*.md
+campaigns/drafts/**/*.csv
+campaigns/approved/**/*.md
+campaigns/approved/**/*.csv
+clay-exports/*.csv
+clay-exports/*.json
+
+# Strategy docs may contain client-specific data
+# Uncomment if you want to keep these out of the repo:
+# strategy/*.md
+
+# OS and editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Node
+node_modules/
+*.log
+
+# Claude Code local state
+.claude/projects/
+
+# Keep folder structure
+!**/.gitkeep

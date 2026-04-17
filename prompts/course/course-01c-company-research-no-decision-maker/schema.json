@@ -1,0 +1,114 @@
+{
+  "type": "object",
+  "properties": {
+    "value_proposition": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "services": {
+      "anyOf": [
+        { "type": "array", "items": { "type": "string" } },
+        { "type": "null" }
+      ]
+    },
+    "industry_vertical": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "is_b2b": {
+      "anyOf": [{ "type": "boolean" }, { "type": "null" }]
+    },
+    "employee_count_estimate": {
+      "anyOf": [
+        { "type": "string", "enum": ["1-9", "10-20", "21-50", "51-80", "80+"] },
+        { "type": "null" }
+      ]
+    },
+    "revenue_signals": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "years_in_business": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }]
+    },
+    "client_types": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "notes": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "has_sales_team": {
+      "anyOf": [{ "type": "boolean" }, { "type": "null" }]
+    },
+    "sales_roles_found": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "sales_team_size_estimate": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }]
+    },
+    "has_sales_leadership": {
+      "anyOf": [{ "type": "boolean" }, { "type": "null" }]
+    },
+    "recent_sales_leadership_hire": {
+      "anyOf": [{ "type": "boolean" }, { "type": "null" }]
+    },
+    "hiring_sales_roles": {
+      "anyOf": [{ "type": "boolean" }, { "type": "null" }]
+    },
+    "hiring_details": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "crm_detected": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "sales_tools_detected": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "enrichment_tools_detected": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "has_revops_or_salesops": {
+      "anyOf": [{ "type": "boolean" }, { "type": "null" }]
+    },
+    "outbound_sophistication": {
+      "anyOf": [
+        { "type": "string", "enum": ["none", "basic", "moderate", "advanced"] },
+        { "type": "null" }
+      ]
+    },
+    "timing_triggers": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "pain_signals": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "growth_signals": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "why_now": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "intent_strength": {
+      "anyOf": [
+        { "type": "string", "enum": ["strong", "moderate", "weak", "none"] },
+        { "type": "null" }
+      ]
+    }
+  },
+  "required": [
+    "value_proposition", "services", "industry_vertical", "is_b2b",
+    "employee_count_estimate", "revenue_signals", "years_in_business",
+    "client_types", "notes",
+    "has_sales_team", "sales_roles_found", "sales_team_size_estimate",
+    "has_sales_leadership", "recent_sales_leadership_hire",
+    "hiring_sales_roles", "hiring_details",
+    "crm_detected", "sales_tools_detected", "enrichment_tools_detected",
+    "has_revops_or_salesops", "outbound_sophistication",
+    "timing_triggers", "pain_signals", "growth_signals",
+    "why_now", "intent_strength"
+  ],
+  "additionalProperties": false
+}

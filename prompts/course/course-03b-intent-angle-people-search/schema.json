@@ -1,0 +1,61 @@
+{
+  "type": "object",
+  "properties": {
+    "recommended_angle": {
+      "anyOf": [
+        { "type": "string", "enum": ["referral_dependency", "inbound_plateau", "recently_independent", "expertise_pipeline_gap", "agency_sceptic", "scaling_ambition", "craft_first"] },
+        { "type": "null" }
+      ]
+    },
+    "angle_reasoning": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "description": "Why this angle was chosen. Reference specific evidence. 2-3 sentences max."
+    },
+    "personalisation_hooks": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "maxItems": 3,
+      "description": "2-3 specific observations for email personalisation"
+    },
+    "copy_expertise": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "description": "1-2 words. The field or discipline. Slots into: your level of ___ expertise"
+    },
+    "copy_client_descriptor": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "description": "1-2 words. Simple plural noun. Slots into: most experts selling to ___"
+    },
+    "copy_business_descriptor": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "description": "1-2 words. Professional identity plural. Slots into: most ___ I speak to"
+    },
+    "copy_hook": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "description": "Max 8 words starting with 'when you're busy'. Slots into: ___, your own pipeline tends to run on whatever time is left over"
+    },
+    "personalised_line": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "description": "1-2 sentences referencing something specific about this person. Uses hedge language. Goes between opening and pain paragraph in the email."
+    },
+    "offer_positioning": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "description": "One sentence on how to position the offer for this specific person"
+    },
+    "intent_score": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }],
+      "description": "0-100. Acquisition gap (0-30) + business stage (0-20) + offer fit (0-20) + personalisation quality (0-15) + content gap (0-15)"
+    },
+    "research_summary": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "description": "2-3 sentences summarising what you found and how approachable this prospect is"
+    }
+  },
+  "required": [
+    "recommended_angle", "angle_reasoning", "personalisation_hooks",
+    "copy_expertise", "copy_client_descriptor", "copy_business_descriptor",
+    "copy_hook", "personalised_line", "offer_positioning",
+    "intent_score", "research_summary"
+  ],
+  "additionalProperties": false
+}
