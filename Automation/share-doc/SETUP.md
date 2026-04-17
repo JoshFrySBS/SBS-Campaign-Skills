@@ -61,20 +61,20 @@ You should see some text scroll by and then it finishes. That is it.
 
 ---
 
-## Step 3: Check the Google credentials file
+## Step 3: Get the Google credentials file
 
-The file `google-client-credentials.json` is already included in your project. You should see it in your main project folder (next to your `.env` file).
+You need a file called `google-client-credentials.json` in your project root folder (next to your `.env` file). Josh will send this to you separately since it can't be stored in the repo.
 
 ```
-your-project/
+sbs-campaign-skills/
   .env                              <-- you already have this
-  google-client-credentials.json    <-- already here
+  google-client-credentials.json    <-- put it here
   Automation/
   campaigns/
   ...
 ```
 
-If for some reason it is not there, run `git pull` to get the latest version of the project.
+If you don't have this file, ask Josh to send it to you.
 
 ---
 
