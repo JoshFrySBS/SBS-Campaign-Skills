@@ -30,13 +30,15 @@ If this is their first time, recommend starting with **01 or 01b** depending on 
 
 ### Step 2: Read the Source Material
 
-Read these files:
-1. The base prompt: `prompts/base/[chosen-prompt]/prompt.txt`
-2. The base schema: `prompts/base/[chosen-prompt]/schema.json`
-3. The student's strategy document from `strategy/` (look for the most recent .md file)
-4. The student's CLAUDE.md (in the parent folder or nearest ancestor)
+**Ask which context the user is in (which client, or SBS internal) before reading.** Adapted prompts and the strategy doc live under `SBS-Internal-Shared/<context>/` where `<context>` is `clients/<client-name>` or `sbs`. Base prompts are shared and stay in `SBS Campaign Skills/prompts/`.
 
-If the strategy doc or CLAUDE.md is missing, tell the student: "I need your strategy document in the strategy/ folder and your CLAUDE.md set up before we can adapt prompts. Would you like help with either of those?"
+Read these files:
+1. The base prompt: `SBS Campaign Skills/prompts/[chosen-prompt-folder]/prompt.txt` (e.g. `prompts/sam/sam-01-company-research-plus-intent/`)
+2. The base schema: `SBS Campaign Skills/prompts/[chosen-prompt-folder]/schema.json`
+3. The strategy document from `SBS-Internal-Shared/<context>/strategy/` (look for the most recent .md file)
+4. The context CLAUDE.md at `SBS-Internal-Shared/<context>/CLAUDE.md`
+
+If the strategy doc or CLAUDE.md is missing, tell the user: "I need your strategy document in `SBS-Internal-Shared/<context>/strategy/` and your CLAUDE.md set up before we can adapt prompts. Would you like help with either of those?"
 
 ### Step 3: Ask Qualifying Questions
 
@@ -133,11 +135,11 @@ Never put JSON schema inside the prompt text. Never combine them. This is the mo
 
 ### Step 6: Save the Adapted Files
 
-Save to `prompts/adapted/[prompt-name]/`:
+Save to `SBS-Internal-Shared/<context>/prompts/adapted/[prompt-name]/`:
 - `prompt.txt` — the adapted prompt
 - `schema.json` — the adapted schema (may be identical to base if no field changes)
 
-Tell the student: "Your adapted prompt is saved to prompts/adapted/[name]/. You can always come back and refine it later."
+Tell the user: "Your adapted prompt is saved to `SBS-Internal-Shared/<context>/prompts/adapted/[name]/`. You can always come back and refine it later."
 
 ---
 
@@ -161,7 +163,7 @@ Tell the student:
 
 ### Step 8: Score Against the Rubric
 
-Read the rubric from `prompt-adapter/rubric.md`.
+Read the rubric from `SBS Campaign Skills/.claude/skills/prompt-adapter/rubric.md` (shared reference).
 
 For each result the student pastes, score all 7 criteria (1-10):
 
@@ -212,7 +214,7 @@ Keep scoring and refining until:
 - The average score is 8.0+ across at least 5 test companies, OR
 - The student is satisfied with the quality
 
-When done, update the saved files in `prompts/adapted/` with the final version.
+When done, update the saved files in `SBS-Internal-Shared/<context>/prompts/adapted/` with the final version.
 
 ---
 

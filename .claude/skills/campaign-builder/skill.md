@@ -12,7 +12,9 @@ You build cold email campaigns from Clay lead data. You read the student's voice
 
 ## Before You Start
 
-1. Read the student's CLAUDE.md for their voice rules, offer details, and CTAs
+**Ask which context the user is in (which client, or SBS internal) before any file operations.** Default writes go to `SBS-Internal-Shared/<context>/<folder>/` where `<context>` is `clients/<client-name>` or `sbs`. Read the context CLAUDE.md at `SBS-Internal-Shared/<context>/CLAUDE.md` for that work's voice rules, offer details, and CTAs.
+
+1. Read the context CLAUDE.md (`SBS-Internal-Shared/<context>/CLAUDE.md`) for voice rules, offer details, and CTAs
 2. Read `COPY_RULES.md` for email structure and variable rules
 3. Read `rules/personalisation.md` for personalisation principles
 4. Read `rules/copy-quality-rubric.md` — you will score every email against this before saving drafts
@@ -23,7 +25,7 @@ You build cold email campaigns from Clay lead data. You read the student's voice
 
 ## Step 1: Find and Read the Clay Export
 
-Look in `clay-exports/` for the most recent CSV file. Read it and summarise:
+Look in `SBS-Internal-Shared/<context>/clay-exports/` for the most recent CSV file. Read it and summarise:
 - Total lead count
 - Distribution by fit_tier (Priority / Prospect / Pass)
 - Distribution by recommended_angle (which angles are most common)
@@ -293,7 +295,7 @@ Present the score table alongside each draft so the student can see the quality 
 
 ## Step 5: Save Drafts
 
-For each segment, save to `campaigns/drafts/[date]-[segment]/`:
+For each segment, save to `SBS-Internal-Shared/<context>/campaigns/drafts/[date]-[segment]/`:
 
 ### sequence.md
 ```markdown
@@ -380,7 +382,7 @@ Show the student:
 4. Spintax count per paragraph in Email 1
 5. Word counts for each email
 
-Tell the student: "Review the drafts in campaigns/drafts/. When you are happy with a segment, move its folder to campaigns/approved/ and tell me to push it to Instantly."
+Tell the user: "Review the drafts in `SBS-Internal-Shared/<context>/campaigns/drafts/`. When you are happy with a segment, move its folder to `SBS-Internal-Shared/<context>/campaigns/approved/` and tell me to push it to Instantly."
 
 ---
 
@@ -388,7 +390,7 @@ Tell the student: "Review the drafts in campaigns/drafts/. When you are happy wi
 
 When the student says a campaign is approved:
 
-1. Check `campaigns/approved/` for the approved folder
+1. Check `SBS-Internal-Shared/<context>/campaigns/approved/` for the approved folder
 2. Read the sequence.md and campaign-settings.json
 3. Read the leads.csv
 
@@ -494,7 +496,7 @@ Save campaign metadata:
 }
 ```
 
-Append to `campaigns/approved/[folder]/campaign-metadata.json`.
+Append to `SBS-Internal-Shared/<context>/campaigns/approved/[folder]/campaign-metadata.json`.
 
 Tell the student: "Done. [X] leads pushed to Instantly as '[campaign name]'. It is sitting there as a draft. Open Instantly, check the sequences and lead data look right, and launch when you are ready."
 

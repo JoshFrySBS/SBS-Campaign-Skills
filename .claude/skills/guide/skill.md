@@ -14,15 +14,17 @@ This person is technically capable (they work with Clay, Instantly, and outbound
 
 ## Before You Respond
 
+**Ask which context the team member is working in (which client, or SBS internal) before any file operations.** Per-context work lives under `SBS-Internal-Shared/<context>/` where `<context>` is `clients/<client-name>` or `sbs`. Shared infra (PIPELINE.md, COPY_RULES.md, base prompts) stays in `SBS Campaign Skills/`.
+
 **Always read these files first:**
-1. `PIPELINE.md` -- which prompts exist, which ICP pipeline to use, model choices
-2. `COPY_RULES.md` -- tone, word count, CTA rules, personalisation rules
-3. The user's CLAUDE.md (parent folder) -- their role, responsibilities, current campaigns
+1. `SBS Campaign Skills/PIPELINE.md` (shared) -- which prompts exist, which ICP pipeline to use, model choices
+2. `SBS Campaign Skills/COPY_RULES.md` (shared) -- tone, word count, CTA rules, personalisation rules
+3. The context CLAUDE.md at `SBS-Internal-Shared/<context>/CLAUDE.md` -- the work's role, responsibilities, current campaigns
 
 Also check:
-- `strategy/` for any ICP hypothesis docs or strategy documents
-- `prompts/` to see which prompts have been adapted already
-- `campaigns/` to see what's in progress
+- `SBS-Internal-Shared/<context>/strategy/` for any ICP hypothesis docs or strategy documents
+- `SBS-Internal-Shared/<context>/prompts/` to see which prompts have been adapted already
+- `SBS-Internal-Shared/<context>/campaigns/` to see what's in progress
 
 ## How to Respond
 
@@ -40,14 +42,14 @@ Walk them through the full workflow:
 
 Read `PIPELINE.md`. There are two ICP pipelines:
 
-- **Sam pipeline** (`prompts/sam/`) -- for SMBs with sales teams. The primary DFY pipeline. Three prompts: company research + intent, ICP fit score, copy writer.
-- **Course pipeline** (`prompts/course/`) -- for solo founders buying the course. Multiple prompt variants depending on how leads were sourced (company search vs people search, with or without intent).
+- **Sam pipeline** (`SBS Campaign Skills/prompts/sam/`) -- for SMBs with sales teams. The primary DFY pipeline. Three prompts: company research + intent, ICP fit score, copy writer.
+- **Course pipeline** (`SBS Campaign Skills/prompts/course/`) -- for solo founders buying the course. Multiple prompt variants depending on how leads were sourced.
 
 Ask: "Which ICP are you targeting? Sam (SMBs with sales teams) or Course (solo founders)?" Then direct them to the right prompt set.
 
 ### 2. Check if prompts need adapting
 
-Look in `prompts/sam/` or `prompts/course/` for the existing prompts. If the campaign targets a different vertical, industry, or angle than what the prompts are currently tuned for, they'll need to run `/prompt-adapter` first.
+Look in `SBS Campaign Skills/prompts/sam/` or `SBS Campaign Skills/prompts/course/` for the base prompts; check `SBS-Internal-Shared/<context>/prompts/adapted/` for any existing adaptations. If the campaign targets a different vertical or angle, run `/prompt-adapter` first.
 
 Ask: "Are the current prompts already adapted for this campaign's target, or do you need to adapt them for a new ICP segment?"
 
@@ -57,11 +59,11 @@ Once prompts are ready:
 
 1. **Source leads in Clay** -- set up the table, source companies matching the ICP criteria from `PIPELINE.md`
 2. **Run prompts in order** -- company research first, then ICP score, then filter (50+), then the next step
-3. **Export from Clay** -- CSV into `clay-exports/`
+3. **Export from Clay** -- CSV into `SBS-Internal-Shared/<context>/clay-exports/`
 4. **Run `/campaign-builder`** -- it reads the CSV, segments leads, writes email sequences, spam checks, and saves drafts
-5. **Review drafts** -- in `campaigns/drafts/`. Use `/share-doc` to create a Google Doc for Josh to review
+5. **Review drafts** -- in `SBS-Internal-Shared/<context>/campaigns/drafts/`. Use `/share-doc` to create a Google Doc for Josh to review
 6. **Get approval from Josh** -- share the doc, wait for sign-off
-7. **Push to Instantly** -- once approved, move to `campaigns/approved/` and tell Claude to push
+7. **Push to Instantly** -- once approved, move to `SBS-Internal-Shared/<context>/campaigns/approved/` and tell Claude to push
 
 ### 4. After launch
 
@@ -103,7 +105,7 @@ The `/campaign-builder` skill writes full email sequences. It:
 - Segments leads by tier (Priority vs Prospect)
 - Writes 3-step email sequences tailored to each segment
 - Spam checks against `reference/spam-words.md`
-- Saves drafts to `campaigns/drafts/`
+- Saves drafts to `SBS-Internal-Shared/<context>/campaigns/drafts/`
 
 Common questions:
 - **"How many leads per campaign?"** -- 50-100 per campaign. Don't put 500 leads in one campaign.

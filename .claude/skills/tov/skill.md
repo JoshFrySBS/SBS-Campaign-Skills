@@ -22,12 +22,14 @@ This skill is for the user building a TOV for their **own business**. They will 
 
 ## Before Starting
 
-1. Read `CLAUDE.md` at the project root if it exists (business context and brand voice rules).
-2. Read `COPY_RULES.md` at the repo root for the baseline copy and tone rules.
-3. Read `reference/tov-document-format.md` for the output format. The final TOV document must match this structure.
-4. Ask: **"Which business is this for?"** (used in the filename - typically the same name used in the strategy document)
-5. Read the user's strategy document at `strategy/{name}_Strategy_Document.md`. If it's not there, ask the user where it lives or suggest they run `/strategy` first.
-6. Scan the `strategy/` folder for any other relevant docs (prior TOV drafts, knowledge base notes).
+**Ask which context this TOV is for (which client, or SBS internal) before any file operations.** The TOV document will be written to `SBS-Internal-Shared/<context>/strategy/` where `<context>` is `clients/<client-name>` or `sbs`.
+
+1. Read the context CLAUDE.md at `SBS-Internal-Shared/<context>/CLAUDE.md` if it exists (business context and brand voice rules).
+2. Read `SBS Campaign Skills/COPY_RULES.md` (shared) for the baseline copy and tone rules.
+3. Read `SBS Campaign Skills/.claude/skills/tov/reference/tov-document-format.md` (shared) for the output format. The final TOV document must match this structure.
+4. Confirm the business name (used in the filename - typically the same name used in the strategy document).
+5. Read the strategy document at `SBS-Internal-Shared/<context>/strategy/{name}_Strategy_Document.md`. If it's not there, ask the user where it lives or suggest they run `/strategy` first.
+6. Scan `SBS-Internal-Shared/<context>/strategy/` for any other relevant docs (prior TOV drafts, knowledge base notes).
 
 ---
 
@@ -50,11 +52,11 @@ If any of these are missing or thin, flag them clearly in the output with `[GAP 
 
 ## Output
 
-**File:** `strategy/{name}_Tone_Of_Voice_Document.md`
+**File:** `SBS-Internal-Shared/<context>/strategy/{name}_Tone_Of_Voice_Document.md`
 
-Generate a markdown document with 13 sections following `reference/tov-document-format.md` exactly. The format file contains the full structure, placeholders, and SBS baseline content for each section.
+Generate a markdown document with 13 sections following `SBS Campaign Skills/.claude/skills/tov/reference/tov-document-format.md` exactly. The format file contains the full structure, placeholders, and SBS baseline content for each section.
 
-If the `strategy/` folder does not exist, create it before writing the file.
+If `SBS-Internal-Shared/<context>/strategy/` does not exist, create it before writing the file.
 
 ---
 
@@ -129,7 +131,7 @@ Draw from the strategy document's Personalisation Logic section. Rewrite all exa
 
 Give the user this summary:
 
-> "TOV document generated at `strategy/{name}_Tone_Of_Voice_Document.md`.
+> "TOV document generated at `SBS-Internal-Shared/<context>/strategy/{name}_Tone_Of_Voice_Document.md`.
 >
 > **Before using it for copy:**
 > 1. Read through the whole document. Edit anything that doesn't sound like you.

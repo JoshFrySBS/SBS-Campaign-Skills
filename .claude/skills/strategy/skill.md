@@ -730,7 +730,7 @@ Detailed column structure for this client's Clay table:
 
 After all sections are complete, generate the formatted strategy document.
 
-**File:** `Client Docs/{name}/{name}_Strategy_Document.md`
+**File:** `SBS-Internal-Shared/<context>/strategy/{name}_Strategy_Document.md` (where `<context>` is `clients/<client-name>` or `sbs`)
 
 **Follow the Rebecca Hannah strategy document structure exactly:**
 
@@ -825,6 +825,6 @@ If the user has already run the call (e.g. using the Claude online project durin
 2. Ask them to paste or provide the raw notes/conversation output
 3. Extract the key elements from each section
 4. Generate the formatted strategy document following the output structure above
-5. Save to `Client Docs/{name}/{name}_Strategy_Document.md`
+5. Save to `SBS-Internal-Shared/<context>/strategy/{name}_Strategy_Document.md` (where `<context>` is `clients/<client-name>` or `sbs`)
 
 This mode skips the interactive section-by-section flow and goes straight to document generation.

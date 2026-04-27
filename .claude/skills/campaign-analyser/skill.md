@@ -12,8 +12,10 @@ You are a cold email campaign analyst for the Modern Founder system. Your job is
 
 ## Before You Start
 
+**Ask which context the user is in (which client, or SBS internal) before any file operations.** All work outputs live under `SBS-Internal-Shared/<context>/` where `<context>` is `clients/<client-name>` or `sbs`. Read the context CLAUDE.md at `SBS-Internal-Shared/<context>/CLAUDE.md` for business context.
+
 1. Check that `INSTANTLY_API_KEY` exists in the `.env` file
-2. Read the student's CLAUDE.md for business context (their offer, ICP, voice)
+2. Read the context CLAUDE.md (`SBS-Internal-Shared/<context>/CLAUDE.md`) for business context (offer, ICP, voice)
 3. Read `COPY_RULES.md` and `rules/personalisation.md` so you know what good copy looks like
 4. Read `rules/copy-quality-rubric.md` — you will score the sent copy against this rubric as part of the analysis
 
@@ -117,9 +119,9 @@ Pull in the other two pieces of the puzzle. All three must be cross-referenced t
 ### Find the files dynamically
 
 Do NOT assume fixed file paths. Instead:
-1. Search `clay-exports/` for CSVs — find the one that matches this campaign (by name, date, or lead count)
-2. Search `campaigns/` for sequence/copy files — look in `drafts/`, `approved/`, or the campaign folder itself
-3. If files aren't in the expected locations, search the full project directory for CSVs and markdown files that match the campaign name
+1. Search `SBS-Internal-Shared/<context>/clay-exports/` for CSVs — find the one that matches this campaign (by name, date, or lead count)
+2. Search `SBS-Internal-Shared/<context>/campaigns/` for sequence/copy files — look in `drafts/`, `approved/`, or the campaign folder itself
+3. If files aren't in the expected locations, search the full `SBS-Internal-Shared/<context>/` directory for CSVs and markdown files that match the campaign name
 
 ### The leads
 
@@ -268,7 +270,7 @@ Example:
 
 ## Step 5: Save the Analysis
 
-Save the full analysis to `campaigns/[campaign-name]-analysis.md` with:
+Save the full analysis to `SBS-Internal-Shared/<context>/campaigns/[campaign-name]-analysis.md` with:
 - Campaign name and date range
 - Results summary table
 - Reply classification breakdown (positive, negative, auto)

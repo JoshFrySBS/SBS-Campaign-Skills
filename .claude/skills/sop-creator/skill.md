@@ -1,6 +1,6 @@
 ---
 name: sop-creator
-description: Turn a process description, Loom transcript, Zoom call transcript (VTT or paste), or existing draft into a formal SBS SOP. Fills the standard template from SBS Campaign Skills/SOPs/SOP_TEMPLATE.md and saves the markdown to SBS Campaign Skills/SOPs/[Category]/. Then prints the exact share-doc command (pre-filled with the SOP Google Drive folder) for Josh to generate a Google Doc for approval, followed by the push-to-notion command to log the approved row in Cyprian's Notion SOP Library. Use when Josh or Cyprian says "create an SOP for...", "document this process", "SOP this", "write me an SOP", "turn this into an SOP", pastes a Loom-generated draft, or points at a Zoom call where a process was walked through.
+description: Turn a process description, Loom transcript, Zoom call transcript (VTT or paste), or existing draft into a formal SBS SOP. Fills the standard template from SBS Campaign Skills/SOPs/SOP_TEMPLATE.md and saves the markdown to SBS-Internal-Shared/SOPs/[Category]/ (or SBS-Internal-Shared/SOPs/Clients/<name>/ for client-specific SOPs). Then prints the exact share-doc command (pre-filled with the SOP Google Drive folder) for Josh to generate a Google Doc for approval, followed by the push-to-notion command to log the approved row in Cyprian's Notion SOP Library. Use when Josh or Cyprian says "create an SOP for...", "document this process", "SOP this", "write me an SOP", "turn this into an SOP", pastes a Loom-generated draft, or points at a Zoom call where a process was walked through.
 ---
 
 # sop-creator
@@ -17,7 +17,8 @@ Create (or update) an SBS SOP. The skill drafts the markdown only — Josh appro
 
 ```
 Step 1 — /sop-creator (this skill)
-  Draft → SBS Campaign Skills/SOPs/[Category]/SBS-SOP-[Category]-[Process].md
+  Draft → SBS-Internal-Shared/SOPs/[Category]/SBS-SOP-[Category]-[Process].md
+  (or SBS-Internal-Shared/SOPs/Clients/<name>/SBS-SOP-<name>-[Process].md for client-specific)
 
 Step 2 — share-doc (manual, triggered by the user)
   Markdown → Google Doc in the SBS SOPs Drive folder (approval happens here)
@@ -31,7 +32,9 @@ The gap between Step 2 and Step 3 is intentional: Josh reads the Google Doc, twe
 ## Inputs to gather (ask only what's missing)
 
 1. **Process name** (e.g. "Company Research Prompt Setup")
-2. **Category** — must match one of these exactly:
+2. **Category** — ask up front: is this SOP generic (one of the categories below) or client-specific?
+
+   Generic categories (one must match exactly):
    - `Clay`
    - `Email / Instantly`
    - `LinkedIn / HeyReach`
@@ -41,7 +44,8 @@ The gap between Step 2 and Step 3 is intentional: Josh reads the Google Doc, twe
    - `Infrastructure`
    - `n8n / Automation`
    - `Course`
-   - `AI Setter`
+
+   Client-specific: use `Clients/<client-name>` (e.g. `Clients/Send-It-Direct`) — saves under `SBS-Internal-Shared/SOPs/Clients/<name>/`.
 3. **Owner** (default: the person invoking the skill)
 4. **Loom URL** (optional — if a recording already exists)
 5. **Process detail** — can come from any of these sources:
@@ -94,7 +98,7 @@ If the transcript clearly covers more than one distinct process, default to gene
 
 ## Filling the template
 
-**Canonical template:** [SBS Campaign Skills/SOPs/SOP_TEMPLATE.md](../../../SBS Campaign Skills/SOPs/SOP_TEMPLATE.md) (mirror of Josh's source template at `C:\Users\Fry\Downloads\SBS_SOP Template and Creation Guide.md`). Always read this file first and follow it exactly. Do not invent section headings or reorder them.
+**Canonical template:** `SBS Campaign Skills/SOPs/SOP_TEMPLATE.md` (mirror of Josh's source template at `C:\Users\Fry\Downloads\SBS_SOP Template and Creation Guide.md`). The template stays in the skills repo as shared reference. Always read this file first and follow it exactly. Do not invent section headings or reorder them.
 
 Every SOP MUST contain these sections in order:
 
@@ -124,7 +128,7 @@ Examples:
 
 The `—` in the title is U+2014. This is the only place we deliberately use an em-dash — it's a naming convention, not prose.
 
-**Local file:** `SBS Campaign Skills/SOPs/[category-folder]/SBS-SOP-[Category]-[Process-Name].md`
+**Local file:** `SBS-Internal-Shared/SOPs/[category-folder]/SBS-SOP-[Category]-[Process-Name].md` (generic) or `SBS-Internal-Shared/SOPs/Clients/<name>/SBS-SOP-<name>-[Process-Name].md` (client-specific)
 
 Category folder mapping (slashes dropped, spaces to dashes):
 | Notion category | Local folder |
@@ -147,7 +151,7 @@ Example: `SBS-SOP-Clay-Company-Research-Setup.md`
 
 1. **Gather input.** Ask only what's missing. Never invent step content.
 2. **Draft the markdown** following the template exactly. Show the user the draft and ask for sign-off before writing. If they say "just save it" / "go" / "looks good", write immediately.
-3. **Write the file** to its final path under `SBS Campaign Skills/SOPs/[Category]/`. Create the folder if it doesn't exist.
+3. **Write the file** to its final path under `SBS-Internal-Shared/SOPs/[Category]/` (or `SBS-Internal-Shared/SOPs/Clients/<name>/` for client-specific). Create the folder if it doesn't exist.
 4. **Print the next two commands** ready to copy-paste:
 
    **Step 2 — generate Google Doc for approval:**
