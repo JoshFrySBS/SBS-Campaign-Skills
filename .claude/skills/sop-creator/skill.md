@@ -20,14 +20,28 @@ Step 1 — /sop-creator (this skill)
   Draft → SBS-Internal-Shared/SOPs/[Category]/SBS-SOP-[Category]-[Process].md
   (or SBS-Internal-Shared/SOPs/Clients/<name>/SBS-SOP-<name>-[Process].md for client-specific)
 
-Step 2 — share-doc (manual, triggered by the user)
-  Markdown → Google Doc in the SBS SOPs Drive folder (approval happens here)
+  Commit + push the markdown so the other machine sees it.
 
-Step 3 — push-to-notion (run after Josh approves the Google Doc)
-  Google Doc link → Notion SOP Library row (Cyprian's dashboard)
+Step 2 — share-doc (manual, triggered by the user)
+  Markdown → Google Doc in the SBS SOPs Drive folder.
+  Review + edit happens on the Google Doc.
+
+Step 3 — push-to-notion (run after the Google Doc is approved)
+  Google Doc link + metadata → Notion SOP Library row.
 ```
 
-The gap between Step 2 and Step 3 is intentional: Josh reads the Google Doc, tweaks wording, then publishes to Notion once happy.
+**The shared markdown is the source of truth.** It lives in `SBS-Internal-Shared/SOPs/` so both Josh and Cyprian can read, edit, and reference SOPs from either machine. Drive (the Google Doc) and Notion (the SOP Library row) are mirrors that get refreshed whenever the markdown changes.
+
+The gap between Step 2 and Step 3 is intentional: Josh reads the Google Doc, tweaks wording (in the Doc OR in the markdown — but if in the Doc, **the markdown must be updated to match before push-to-notion runs**, otherwise the source of truth drifts). Once the Google Doc reads as the final approved version, push-to-notion creates or updates the Notion row.
+
+### Updating an existing SOP (same flow)
+
+If either Josh or Cyprian edits the markdown in `SBS-Internal-Shared/SOPs/`:
+1. Commit + push the markdown change.
+2. Re-run share-doc with the same `--title` — it overwrites the Google Doc content in place (same Drive file, same URL, refreshed body).
+3. Re-run push-to-notion with the same `--title` — it upserts the Notion row by exact title match (no duplicates, refreshed `Last Updated` + Google Doc link + status).
+
+Title stable → no duplicates anywhere. Title changed → renames the file/row everywhere (treat as creating a new SOP).
 
 ## Inputs to gather (ask only what's missing)
 
@@ -211,4 +225,5 @@ The SOP folder in Google Drive is shared with the integration already. The Notio
 - Never skip a template section. Unknown → `[TBD]`.
 - Never auto-run share-doc or push-to-notion from inside the skill. Print the commands for the user.
 - Always use today's date for "Last Updated".
-- Always write the local markdown first. It is the source of truth; Drive and Notion are mirrors.
+- **Always write the markdown to `SBS-Internal-Shared/SOPs/` first.** That folder is the source of truth, accessible from both Josh's and Cyprian's machines once committed + pushed. Drive (Google Doc) and Notion (SOP Library row) are downstream mirrors — they only become correct after the markdown is correct.
+- If the Google Doc gets edited during review, propagate those edits back into the markdown before running push-to-notion. The markdown MUST stay in sync with the Doc, or the next regeneration will overwrite the Doc edits.

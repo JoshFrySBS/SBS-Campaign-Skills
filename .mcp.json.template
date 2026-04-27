@@ -1,0 +1,35 @@
+{
+  "_comment": "Template for ~/SidebySide/.mcp.json. Copy this file to your project root as `.mcp.json` and fill in the placeholders. Comments are not valid JSON, but VS Code's JSONC support lets you keep `_comment` keys; the MCP loader ignores them.",
+  "_setup": "Most placeholders need keys from Josh — ask via WhatsApp. The Attio MCP uses OAuth so no key is needed (run `/mcp authenticate` once Claude Code starts).",
+  "mcpServers": {
+    "notion": {
+      "command": "npx",
+      "args": ["-y", "@notionhq/notion-mcp-server"],
+      "env": {
+        "OPENAPI_MCP_HEADERS": "{\"Authorization\":\"Bearer PASTE_NOTION_INTEGRATION_TOKEN_HERE\",\"Notion-Version\":\"2022-06-28\"}"
+      }
+    },
+    "n8n-mcp": {
+      "command": "npx",
+      "args": ["n8n-mcp"],
+      "env": {
+        "MCP_MODE": "stdio",
+        "LOG_LEVEL": "error",
+        "DISABLE_CONSOLE_OUTPUT": "true",
+        "N8N_API_URL": "https://n8n.srv1098734.hstgr.cloud",
+        "N8N_API_KEY": "PASTE_N8N_PERSONAL_ACCESS_TOKEN_HERE"
+      }
+    },
+    "attio": {
+      "type": "http",
+      "url": "https://mcp.attio.com/mcp"
+    },
+    "clay": {
+      "type": "http",
+      "url": "https://api.clay.com/v3/mcp",
+      "headers": {
+        "Authorization": "Bearer PASTE_CLAY_API_KEY_HERE"
+      }
+    }
+  }
+}
