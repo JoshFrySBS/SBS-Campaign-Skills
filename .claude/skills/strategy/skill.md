@@ -21,10 +21,13 @@ You genuinely care about campaign results. You are not here to be polite - you a
 
 ## Before Starting
 
+**Ask which context the user is in (which client, or SBS internal) before any file operations.** Strategy docs live under `SBS-Internal-Shared/<context>/strategy/` where `<context>` is `clients/<client-name>` or `sbs`.
+
 1. Read `CLAUDE.md` for full business context, offer stack, and brand voice rules.
-2. Read `Business Docs/Methods & IP/Email Copy Rules & Methods.md` for the ANGLE method, 4Ps method, copy rules, and tone rules.
-3. Read `Client Docs/Rebecca Hannah/Rebecca_Strategy_Document.docx.md` as the gold standard output format. The final strategy document must match this structure.
-4. Check if the client already has a folder in `Client Docs/`. If so, read everything in it.
+2. Read `SBS Campaign Skills/COPY_RULES.md` (shared) for the ANGLE method, 4Ps method, copy rules, and tone rules.
+3. **Read `SBS Campaign Skills/.claude/skills/strategy/reference/rebecca-gold-standard.md` as the gold-standard output format.** This is the canonical Rebecca Hannah strategy document — every strategy doc you generate must match its structure, depth, and section ordering. The reference includes a header explaining how to adapt the shape (keep) vs the substance (replace with new client data).
+4. Read the context CLAUDE.md at `SBS-Internal-Shared/<context>/CLAUDE.md` if it exists.
+5. Scan `SBS-Internal-Shared/<context>/strategy/` and `SBS-Internal-Shared/<context>/notes/` for any existing material on this client/campaign.
 
 ---
 
@@ -732,7 +735,7 @@ After all sections are complete, generate the formatted strategy document.
 
 **File:** `SBS-Internal-Shared/<context>/strategy/{name}_Strategy_Document.md` (where `<context>` is `clients/<client-name>` or `sbs`)
 
-**Follow the Rebecca Hannah strategy document structure exactly:**
+**Follow the Rebecca Hannah gold-standard structure exactly** (bundled at `SBS Campaign Skills/.claude/skills/strategy/reference/rebecca-gold-standard.md` — re-read it now if you haven't already this session):
 
 1. Executive Summary (one-line strategy + campaign snapshot table + confidence scores table)
 2. Ideal Customer Profiles (with avatar descriptions, company profiles)

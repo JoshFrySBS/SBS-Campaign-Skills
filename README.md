@@ -58,8 +58,13 @@ Copy the updated skills from modern-founder-skills into my .claude folder
 
 ## What's in This Package
 
-### Clay Prompts (`prompts/base/`)
-Production-ready prompts for your Clay lead scoring pipeline:
+### Clay Prompts (`prompts/sam/` and `prompts/course/`)
+Production-ready prompts for your Clay lead scoring pipeline. Two ICP pipelines:
+
+- **`prompts/sam/`** — Sam pipeline. Targeting SMBs with sales teams (the primary DFY pipeline).
+- **`prompts/course/`** — Course pipeline. Targeting solo founders.
+
+Each pipeline has the same three-prompt shape:
 
 | # | Prompt | What it does |
 |---|--------|-------------|
@@ -162,8 +167,9 @@ Use this anytime to refine how your emails are personalised. It helps you design
 
 | Folder | What goes here |
 |--------|---------------|
-| `prompts/base/` | The 3 original Clay prompts. Do not edit these directly. |
-| `prompts/adapted/` | Your personalised versions (created by `/prompt-adapter`). |
+| `prompts/sam/` | Sam pipeline base prompts (SMBs with sales teams). Do not edit these directly. |
+| `prompts/course/` | Course pipeline base prompts (solo founders). Do not edit these directly. |
+| `SBS-Internal-Shared/<context>/prompts/adapted/` | Your personalised versions (created by `/prompt-adapter`). Lives in the internal-shared repo, scoped per client or SBS internal. |
 | `strategy/` | Your strategy document from Josh's call. |
 | `clay-exports/` | CSV exports from your Clay table. Drop them here for `/campaign-builder`. |
 | `campaigns/drafts/` | Draft campaigns created by `/campaign-builder`. Review before approving. |
@@ -205,7 +211,7 @@ Run `/prompt-adapter` and go through the testing loop. Paste your Clay results b
 Run `/personalisation` to redesign your copy variables. Then update your company-research prompt with `/prompt-adapter`.
 
 **"git pull says there are conflicts"**
-This usually means you edited a file in `prompts/base/` directly. Run `git stash` to save your changes, then `git pull`, then `git stash pop` to put your changes back. If in doubt, ask Josh.
+This usually means you edited a file inside `SBS Campaign Skills/` directly (it's read-only). Run `git stash` to save your changes, then `git pull`, then `git stash pop` to put your changes back. If in doubt, ask Josh.
 
 ---
 
