@@ -1,6 +1,6 @@
 ---
 name: sop-creator
-description: Turn a process description, Loom transcript, Zoom call transcript (VTT or paste), or existing draft into a formal SBS SOP. Fills the standard template from SBS Campaign Skills/SOPs/SOP_TEMPLATE.md and saves the markdown to SBS-Internal-Shared/SOPs/[Category]/ (or SBS-Internal-Shared/SOPs/Clients/<name>/ for client-specific SOPs). Then prints the exact share-doc command (pre-filled with the SOP Google Drive folder) for Josh to generate a Google Doc for approval, followed by the push-to-notion command to log the approved row in Cyprian's Notion SOP Library. Use when Josh or Cyprian says "create an SOP for...", "document this process", "SOP this", "write me an SOP", "turn this into an SOP", pastes a Loom-generated draft, or points at a Zoom call where a process was walked through.
+description: Turn a process description, Loom transcript, Zoom call transcript (VTT or paste), or existing draft into a formal SBS SOP. Fills the standard template from SBS-Internal-Shared/SOPs/SOP_TEMPLATE.md and saves the markdown to SBS-Internal-Shared/SOPs/[Category]/ (or SBS-Internal-Shared/SOPs/Clients/<name>/ for client-specific SOPs). Then prints the exact share-doc command (pre-filled with the SOP Google Drive folder) for the user to generate a Google Doc for approval, followed by the push-to-notion command to log the approved row in the Notion SOP Library. Use when someone says "create an SOP for...", "document this process", "SOP this", "write me an SOP", "turn this into an SOP", pastes a Loom-generated draft, or points at a Zoom call where a process was walked through.
 ---
 
 # sop-creator
@@ -112,7 +112,7 @@ If the transcript clearly covers more than one distinct process, default to gene
 
 ## Filling the template
 
-**Canonical template:** `SBS Campaign Skills/SOPs/SOP_TEMPLATE.md` (mirror of Josh's source template at `C:\Users\Fry\Downloads\SBS_SOP Template and Creation Guide.md`). The template stays in the skills repo as shared reference. Always read this file first and follow it exactly. Do not invent section headings or reorder them.
+**Canonical template:** `SBS-Internal-Shared/SOPs/SOP_TEMPLATE.md`. Lives in the shared repo so both Josh and Cyprian see/edit the same canonical template. Always read this file first and follow it exactly. Do not invent section headings or reorder them.
 
 Every SOP MUST contain these sections in order:
 

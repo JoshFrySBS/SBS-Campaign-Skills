@@ -25,7 +25,7 @@ A signal-mining pipeline that surfaces 30–50 hot DFY-fit companies per week wi
 
 - Weekly tasks land in his Notion Task Board: https://www.notion.so/Cyprian-SBS-Dashboard-342169e497cc80a78b24d72584c77f6c
 - Each task title: `DFY Engine — Week of YYYY-MM-DD`
-- He follows the SOP at `SBS Campaign Skills/SOPs/Cyprian/dfy-engine-weekly.md` (built in Phase 6)
+- He follows the SOP at `SBS-Internal-Shared/SOPs/Internal-Ops/SBS-SOP-Internal-Ops-DFY-Engine-Weekly.md` (built in Phase 6)
 
 ## Status
 

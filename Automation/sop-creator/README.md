@@ -4,7 +4,7 @@ Helper script for the last step of the SOP flow: writing a row into the Notion S
 
 ## The SOP flow (three steps)
 
-1. `/sop-creator` in Claude Code → drafts the SOP markdown and saves it to `SBS Campaign Skills/SOPs/[Category]/`
+1. `/sop-creator` in Claude Code → drafts the SOP markdown and saves it to `SBS-Internal-Shared/SOPs/[Category]/`
 2. `node Automation/share-doc/share.js <file> --title "..." --folder 18tuIf9DH-h6OF5TcobZq_WXgf7JCpGEh` → uploads a formatted Google Doc to the shared [SBS SOPs Drive folder](https://drive.google.com/drive/folders/18tuIf9DH-h6OF5TcobZq_WXgf7JCpGEh). This is the approval gate — Josh reads the doc and edits if needed.
 3. `node Automation/sop-creator/push-to-notion.js ...` → creates or updates the Notion row in the [SOP Library database](https://www.notion.so/342169e497cc818db47ecc12cf1bd397)
 
@@ -17,7 +17,7 @@ Three modes:
 ### 1. Normal mode — SOP with a local markdown file
 
 ```bash
-node Automation/sop-creator/push-to-notion.js "SBS Campaign Skills/SOPs/Clay/SBS-SOP-Clay-Company-Research-Setup.md" \
+node Automation/sop-creator/push-to-notion.js "SBS-Internal-Shared/SOPs/Clay/SBS-SOP-Clay-Company-Research-Setup.md" \
   --title "SBS SOP — Clay — Company Research Setup" \
   --category "Clay" \
   --doc-link "https://docs.google.com/document/d/abc123/edit" \

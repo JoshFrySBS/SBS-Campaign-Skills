@@ -307,7 +307,7 @@ Task Board DB ID: `342169e4-97cc-8163-9c20-f4f71a715aea`
 
 **Hypothesis doc:** `Business Docs/Offers & Master Doc/ICP-Hypothesis-Outbound-Engine-Sales-Teams.md` updated in Phase 0
 
-**SOP for Cyprian:** drafted via `/sop-creator` after engine is live, saved to `SBS Campaign Skills/SOPs/Cyprian/dfy-engine-weekly.md`
+**SOP for Cyprian:** drafted via `/sop-creator` after engine is live, saved to `SBS-Internal-Shared/SOPs/Internal-Ops/SBS-SOP-Internal-Ops-DFY-Engine-Weekly.md`
 
 ---
 
