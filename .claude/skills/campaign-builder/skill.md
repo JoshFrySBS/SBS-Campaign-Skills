@@ -19,7 +19,10 @@ You build cold email campaigns from Clay lead data. You read the student's voice
 3. Read `rules/personalisation.md` for personalisation principles
 4. Read `rules/copy-quality-rubric.md` — you will score every email against this before saving drafts
 5. Read `reference/spam-words.md` — you will check every email against this
-6. Check `.env` for `INSTANTLY_API_KEY` (needed for the push step, not for drafting)
+6. **Detect the sending platform** for this context. Search the context CLAUDE.md for "Channel:", "Sending Platform:", "Engine:", or explicit mentions of "Instantly" / "Lemlist". If unclear, ask: "Pushing to Instantly or Lemlist?" Default is Instantly. The platform decides which env var + API setup the push step needs:
+   - **Instantly:** `INSTANTLY_API_KEY` in `.env`. Setup guide: `reference/instantly-api-setup.md`.
+   - **Lemlist:** `LEMLIST_API_KEY` in `.env`. Setup guide: `reference/lemlist-api-setup.md`.
+   Variable format and spintax are identical across both platforms (`{{camelCase}}` and `{{a|b}}`), so the drafting steps below don't change.
 
 ---
 
@@ -382,21 +385,29 @@ Show the student:
 4. Spintax count per paragraph in Email 1
 5. Word counts for each email
 
-Tell the user: "Review the drafts in `SBS-Internal-Shared/<context>/campaigns/drafts/`. When you are happy with a segment, move its folder to `SBS-Internal-Shared/<context>/campaigns/approved/` and tell me to push it to Instantly."
+Tell the user: "Review the drafts in `SBS-Internal-Shared/<context>/campaigns/drafts/`. When you are happy with a segment, move its folder to `SBS-Internal-Shared/<context>/campaigns/approved/` and tell me to push it to [Instantly|Lemlist]."
 
 ---
 
-## Step 7: Push Approved Campaigns to Instantly
+## Step 7: Push Approved Campaigns
 
-When the student says a campaign is approved:
+When the user says a campaign is approved:
 
 1. Check `SBS-Internal-Shared/<context>/campaigns/approved/` for the approved folder
-2. Read the sequence.md and campaign-settings.json
-3. Read the leads.csv
+2. Read the `sequence.md`, `campaign-settings.json`, and `leads.csv`
+3. **Confirm the platform** detected in "Before You Start" step 6. If you didn't detect it earlier, ask now.
+4. Confirm the relevant API key is loaded from `.env` before making any calls. If the key is missing, point the user at the right setup guide and stop.
 
-### API Calls
+Then jump to **Step 7a (Instantly)** OR **Step 7b (Lemlist)** depending on the platform. Never run both.
 
-**Create the campaign:**
+The drafted markdown is platform-agnostic. The same `{{firstName}}`, `{{companyName}}`, `{{copyExpertise}}` style variables and `{{Hi|Hey}}` spintax work in both. Only the API calls below differ.
+
+---
+
+### Step 7a — Push to Instantly
+
+#### Create the campaign
+
 ```
 POST https://api.instantly.ai/api/v2/campaigns
 Headers:
@@ -429,7 +440,7 @@ Body:
 
 Save the returned campaign ID.
 
-**Add sequences and sending accounts:**
+#### Add sequences and sending accounts
 
 **CRITICAL: Email body formatting.** Instantly renders plain text. To get visible spacing between paragraphs, you MUST insert `\n\n` (two newlines) between each paragraph in the JSON body string. A single `\n` creates a line break but no visible gap. Every paragraph must be separated by `\n\n` so the email doesn't arrive as a wall of text.
 
@@ -456,7 +467,8 @@ Body:
 }
 ```
 
-**Add leads (one at a time):**
+#### Add leads (one at a time)
+
 ```
 POST https://api.instantly.ai/api/v2/leads
 Headers:
@@ -480,15 +492,143 @@ Body:
 
 Wait 300ms between each lead request to respect rate limits.
 
-**NEVER activate the campaign automatically.** Always leave it as a draft. Tell the student: "Your campaign is in Instantly as a draft. Open Instantly, review everything, and launch when you are ready."
+**NEVER activate the campaign automatically.** Always leave it as a draft.
 
-### After Push
+Skip Step 7b and jump to **Step 7c — After Push**.
 
-Save campaign metadata:
+---
+
+### Step 7b — Push to Lemlist
+
+**Auth:** Lemlist uses Basic Auth with an empty username and the API key as the password. Encode `:{LEMLIST_API_KEY}` as base64 and pass as `Authorization: Basic <encoded>`. (e.g. in Node: `Buffer.from(":" + apiKey).toString("base64")`).
+
+**Base URL:** `https://api.lemlist.com/api` (no `/v2`).
+
+**Variable format:** Lemlist supports `{{firstName}}`, `{{companyName}}`, etc. natively. Any extra top-level field passed when creating a lead becomes a usable template variable, so `copyExpertise` / `copyHook` / etc. work as `{{copyExpertise}}` / `{{copyHook}}` in the email body. Spintax (`{{a|b}}`) works identically.
+
+#### 1. Verify connected senders
+
+```
+GET https://api.lemlist.com/api/team/senders
+Headers:
+  Authorization: Basic <base64(":"+LEMLIST_API_KEY)>
+```
+
+Confirm the expected mailbox count (e.g. 6 mailboxes for Send It Direct) and that all show as healthy. If any are missing or disconnected, stop and tell the user — pushing leads to a campaign with broken senders will burn deliverability.
+
+#### 2. Create the campaign
+
+```
+POST https://api.lemlist.com/api/campaigns
+Headers:
+  Authorization: Basic <base64(":"+LEMLIST_API_KEY)>
+  Content-Type: application/json
+Body:
+{
+  "name": "[campaign_name from settings]"
+}
+```
+
+Save the returned `_id` (the campaign ID). Lemlist auto-creates a default sequence and schedule on creation, which we'll update next.
+
+#### 3. Fetch the auto-created sequence
+
+```
+GET https://api.lemlist.com/api/campaigns/{campaign_id}/sequences
+Headers:
+  Authorization: Basic <base64(":"+LEMLIST_API_KEY)>
+```
+
+Save the returned `sequence_id`. You'll attach steps to this.
+
+#### 4. Add the three email steps
+
+For each email in the sequence (Email 1, Email 2, Email 3), `POST` a step:
+
+```
+POST https://api.lemlist.com/api/sequences/{sequence_id}/steps
+Headers:
+  Authorization: Basic <base64(":"+LEMLIST_API_KEY)>
+  Content-Type: application/json
+Body:
+{
+  "type": "email",
+  "delay": [0 for Email 1, 3 for Email 2, 5 for Email 3],
+  "subject": "[subject line]",
+  "body": "[email body with \\n\\n between paragraphs and {{spintax}} preserved]"
+}
+```
+
+For Email 1 with three subject variants (A/B/C), Lemlist treats subject A/B testing as a single step with a `subject` array. If unsure of the exact A/B field name in the current Lemlist API, push the campaign with the A subject only and add B/C variants manually in the Lemlist UI. (The campaign is in Draft, so this is safe.)
+
+Email 2 and Email 3 use `"subject": "re: [Email 1 A subject]"` to thread under the original.
+
+#### 5. Configure the schedule
+
+The auto-created schedule defaults to Mon-Fri working hours in the team's default timezone. If the campaign settings need a non-default schedule (different timezone, hours, days), update the campaign with:
+
+```
+PUT https://api.lemlist.com/api/campaigns/{campaign_id}
+Headers:
+  Authorization: Basic <base64(":"+LEMLIST_API_KEY)>
+  Content-Type: application/json
+Body:
+{
+  "schedule": {
+    "timezone": "Europe/Isle_of_Man",
+    "from": "09:00",
+    "to": "17:00",
+    "days": ["monday","tuesday","wednesday","thursday","friday"]
+  }
+}
+```
+
+If the API returns a 400 on the schedule body shape, leave the auto-created schedule and tell the user to verify it in the Lemlist UI before launching. The campaign is still Draft, so this is safe.
+
+#### 6. Add leads (one at a time)
+
+```
+POST https://api.lemlist.com/api/campaigns/{campaign_id}/leads/?deduplicate=true
+Headers:
+  Authorization: Basic <base64(":"+LEMLIST_API_KEY)>
+  Content-Type: application/json
+Body:
+{
+  "email": "[lead email]",
+  "firstName": "[first_name]",
+  "lastName": "[last_name]",
+  "companyName": "[company_name]",
+  "jobTitle": "[job_title if available]",
+  "linkedinUrl": "[linkedin_url if available]",
+  "copyExpertise": "[value]",
+  "copyBusinessDescriptor": "[value]",
+  "copyClientDescriptor": "[value]",
+  "copyHook": "[value]"
+}
+```
+
+Top-level fields beyond the standard ones (any field other than `email`, `firstName`, `lastName`, `companyName`, `jobTitle`, `linkedinUrl`, `picture`, `phone`, `companyDomain`, `icebreaker`, `timezone`, `contactOwner`) are stored as custom variables on the lead and are available as `{{fieldName}}` in the email body. This is how `copyExpertise`, `copyHook`, etc. flow through.
+
+Wait 500ms between each lead request to respect rate limits. Lemlist is more sensitive to burst writes than Instantly.
+
+#### 7. Do NOT call `/start`
+
+`POST /campaigns/{campaign_id}/start` would launch the campaign immediately. Skip it. The campaign sits in Draft until the user reviews it in the Lemlist UI and starts it manually.
+
+Jump to **Step 7c — After Push**.
+
+---
+
+### Step 7c — After Push (both platforms)
+
+Save campaign metadata to the approved folder:
+
 ```json
 {
+  "platform": "instantly | lemlist",
   "campaign_id": "[id from API]",
   "campaign_name": "[name]",
+  "sequence_id": "[lemlist only]",
   "lead_count": [number],
   "segment": "[segment]",
   "pushed_at": "[timestamp]",
@@ -498,7 +638,7 @@ Save campaign metadata:
 
 Append to `SBS-Internal-Shared/<context>/campaigns/approved/[folder]/campaign-metadata.json`.
 
-Tell the student: "Done. [X] leads pushed to Instantly as '[campaign name]'. It is sitting there as a draft. Open Instantly, check the sequences and lead data look right, and launch when you are ready."
+Tell the user: "Done. [X] leads pushed to [Instantly|Lemlist] as '[campaign name]'. It is sitting there as a draft. Open [Instantly|Lemlist], check the sequences, sender accounts, schedule, and lead data look right, and launch when you are ready."
 
 ---
 

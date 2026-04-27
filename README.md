@@ -94,6 +94,7 @@ Each pipeline has the same three-prompt shape:
 ### Other Docs
 - **PIPELINE.md** -- The full Clay pipeline flow, prompt details, and tier definitions.
 - **COPY_RULES.md** -- How every email and copy variable is structured. Tone, word count, CTA rules.
+- **SKILL_SYNC_AUDIT.md** -- Generated report comparing this repo's skills to the public Modern Founder Skills repo. Regenerate with `node Automation/skills-sync/audit.js > SBS\ Campaign\ Skills/SKILL_SYNC_AUDIT.md` from the project root. Helps Josh spot unintended drift between operator-facing and student-facing skills.
 
 ---
 
